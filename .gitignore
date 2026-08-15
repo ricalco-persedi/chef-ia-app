@@ -1,0 +1,14 @@
+# Dependencias
+node_modules/
+
+# Variables secretas de entorno local (NUNCA SUBIR A GIT)
+.env
+.env.local
+
+# Carpeta de subida de imágenes
+uploads/*
+!uploads/.gitkeep
+
+# Logs de ejecuciones
+npm-debug.log*
+yarn-debug.log*
