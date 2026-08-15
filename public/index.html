@@ -3,7 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chef IA App - Asistente Gastronómico Geo-Localizado</title>
+  
+  <!-- Título y SEO Básico -->
+  <title>IA Chef - Tu Asistente Gastronómico Inteligente & Guía Culinaria Local</title>
+  <meta name="description" content="Sube una foto de tu heladera o escribe tus antojos. IA Chef genera recetas personalizadas con porciones exactas, geolocalización de comercios locales y el Secreto del Chef.">
+  <meta name="keywords" content="recetas, ia, chef, cocina, ingredientes, heladera, comida, gastronomia, iachef">
+
+  <!-- Open Graph / Metaetiquetas para Redes Sociales (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://iachef.com/">
+  <meta property="og:title" content="IA Chef - Recetas Inteligentes con Comercios Cercanos">
+  <meta property="og:description" content="Descubre qué cocinar hoy según lo que tienes en tu heladera o tus antojos. Incluye lista de compras en comercios locales.">
+  <meta property="og:image" content="https://iachef.com/og-image.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://iachef.com/">
+  <meta name="twitter:title" content="IA Chef - Asistente Gastronómico Inteligente">
+  <meta name="twitter:description" content="Sube una foto de tus ingredientes y crea recetas a medida con la IA más rápida.">
+
+  <!-- Tailwind CSS vía CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -11,16 +30,16 @@
 
   <div class="min-h-full flex flex-col justify-between p-4 md:p-8">
     
-    <!-- Encabezado -->
+    <!-- Encabezado con Dominio Corporativo -->
     <header class="max-w-4xl mx-auto w-full text-center space-y-3 my-6">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
-        📍 Geolocalización Culinaria & Google Local Network
+        📍 iachef.com - Inteligencia Culinaria Geo-Localizada
       </div>
       <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">
-        Chef <span class="text-amber-500">IA</span> App
+        IA <span class="text-amber-500">Chef</span>
       </h1>
       <p class="text-slate-400 max-w-lg mx-auto text-sm md:text-base">
-        Recetas personalizadas con ingredientes locales y mapa de compras cercano.
+        Tu asistente inteligente de cocina: ajusta tus preferencias, sube tu foto o encuentra ingredientes en negocios locales.
       </p>
     </header>
 
@@ -31,7 +50,7 @@
         
         <form id="chefForm" class="space-y-6">
           
-          <!-- 📍 Campo de Ubicación Geográfica (NUEVO) -->
+          <!-- Campo de Ubicación Geográfica -->
           <div class="space-y-2 bg-slate-950/80 p-4 rounded-2xl border border-amber-500/30">
             <label for="ubicacionTexto" class="block text-sm font-semibold text-amber-400 flex items-center justify-between">
               <span>📍 ¿En qué ciudad o región te encuentras?</span>
@@ -46,7 +65,7 @@
               value="Mendoza, Argentina"
               class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-amber-500 transition-all"
             >
-            <p class="text-[11px] text-slate-500">Servirá para adaptar los nombres de ingredientes y recomendar los comercios más cercanos.</p>
+            <p class="text-[11px] text-slate-500">Servirá para sugerir los comercios más cercanos en iachef.com.</p>
           </div>
 
           <!-- 1. Modo de Cocina -->
@@ -142,7 +161,7 @@
       <!-- Estado de Carga -->
       <section id="loadingState" class="hidden bg-slate-900 border border-slate-800 rounded-3xl p-8 text-center space-y-4 animate-pulse">
         <div class="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-        <p class="text-slate-300 font-semibold">Chef IA está localizando mercados en tu zona y creando la receta...</p>
+        <p class="text-slate-300 font-semibold">IA Chef está localizando mercados en tu zona y creando la receta...</p>
       </section>
 
       <!-- Panel de Resultados -->
@@ -161,7 +180,7 @@
     </main>
 
     <footer class="max-w-4xl mx-auto w-full text-center py-6 border-t border-slate-900 text-xs text-slate-600">
-      Chef IA App &copy; 2026. Plataforma de Monetización Culinaria Local.
+      iachef.com &copy; 2026. Todos los derechos reservados.
     </footer>
 
   </div>
