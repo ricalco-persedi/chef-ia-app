@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IA Chef | Tu Asistente Culinario Nutricional en iachef.com</title>
-  <meta name="description" content="Recetas inteligentes personalizadas para diabéticos, celíacos, veganos y dietas médicas. Análisis multifoto y dictado por voz.">
+  <meta name="description" content="Recetas inteligentes personalizadas para diabéticos, celíacos, veganos, maridaje de bebidas y compras locales.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -14,13 +14,13 @@
     
     <header class="max-w-4xl mx-auto w-full text-center space-y-3 my-6">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
-        📍 iachef.com - Salud, Adaptación Médica & Mapeo Multimodal
+        📍 iachef.com - Salud, Maridaje Estratégico & Mapeo Multimodal
       </div>
       <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">
         IA <span class="text-amber-500">Chef</span>
       </h1>
       <p class="text-slate-400 max-w-lg mx-auto text-sm md:text-base">
-        Nutrición adaptada a tu condición de salud, escaneo multifoto de tu alacena y guía de comercios cercanos.
+        Nutrición adaptada a tu salud, maridaje perfecto de bebidas con/sin alcohol y guía de comercios de cercanía.
       </p>
     </header>
 
@@ -47,7 +47,7 @@
             >
           </div>
 
-          <!-- 🩺 Perfiles de Salud y Dietas Especiales (NUEVO) -->
+          <!-- 🩺 Perfiles de Salud y Dietas Especiales -->
           <div class="space-y-3 bg-rose-950/20 p-4 rounded-2xl border border-rose-500/30">
             <label class="block text-sm font-semibold text-rose-400">
               🩺 Condiciones de Salud y Perfiles Alimentarios (Selecciona los que apliquen)
@@ -94,6 +94,27 @@
             >
           </div>
 
+          <!-- 🍷 Módulo de Maridaje de Bebidas (MONETIZACIÓN Y EXPERIENCIA) -->
+          <div class="space-y-3 bg-indigo-950/20 p-4 rounded-2xl border border-indigo-500/30">
+            <label class="block text-sm font-semibold text-indigo-400">
+              🍷 Preferencias de Maridaje de Bebidas
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <label class="flex items-center gap-2 p-2.5 bg-slate-950/60 border border-slate-800 rounded-xl cursor-pointer hover:border-indigo-500/50">
+                <input type="radio" name="preferenciaBebida" value="ambas" checked class="accent-indigo-500">
+                <span>Con y Sin Alcohol</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 bg-slate-950/60 border border-slate-800 rounded-xl cursor-pointer hover:border-indigo-500/50">
+                <input type="radio" name="preferenciaBebida" value="solo_sin_alcohol" class="accent-indigo-500">
+                <span>Únicamente Sin Alcohol</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 bg-slate-950/60 border border-slate-800 rounded-xl cursor-pointer hover:border-indigo-500/50">
+                <input type="radio" name="preferenciaBebida" value="solo_con_alcohol" class="accent-indigo-500">
+                <span>Únicamente Con Alcohol</span>
+              </label>
+            </div>
+          </div>
+
           <!-- Modo de Planificación -->
           <div class="space-y-3">
             <label class="block text-sm font-medium text-slate-300">
@@ -117,7 +138,7 @@
             </div>
           </div>
 
-          <!-- 📸 Carga Multifoto (Hasta 4 imágenes) & 🎙️ Micrófono de Voz (NUEVO) -->
+          <!-- 📸 Carga Multifoto (Hasta 4 imágenes) & 🎙️ Micrófono de Voz -->
           <div class="space-y-3 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
             <div class="flex items-center justify-between">
               <label class="block text-sm font-medium text-slate-300">
@@ -180,19 +201,19 @@
             id="submitBtn"
             class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3.5 px-6 rounded-2xl transition-all shadow-lg shadow-amber-500/20 active:scale-[0.99] flex items-center justify-center gap-2"
           >
-            <span>👨‍🍳 Generar Receta Personalizada & Ruta de Compras</span>
+            <span>👨‍🍳 Generar Receta, Maridaje & Ruta de Compras</span>
           </button>
         </form>
       </section>
 
       <section id="loadingState" class="hidden bg-slate-900 border border-slate-800 rounded-3xl p-8 text-center space-y-4 animate-pulse">
         <div class="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-        <p class="text-slate-300 font-semibold">Analizando imágenes, condiciones de salud y negocios locales en iachef.com...</p>
+        <p class="text-slate-300 font-semibold">Analizando imágenes, salud, maridaje de bebidas y mercados locales en iachef.com...</p>
       </section>
 
       <section id="resultSection" class="hidden bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-4">
         <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-          <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">👨‍🍳 Tu Plan Nutricional & Receta</h2>
+          <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">👨‍🍳 Tu Plan Nutricional, Maridaje & Receta</h2>
           <span id="modelBadge" class="text-xs font-mono bg-slate-800 text-slate-400 px-2.5 py-1 rounded-md"></span>
         </div>
         <div id="recipeOutput" class="prose prose-invert max-w-none text-slate-200 text-sm md:text-base leading-relaxed whitespace-pre-line font-sans"></div>
@@ -201,7 +222,7 @@
     </main>
 
     <footer class="max-w-4xl mx-auto w-full text-center py-6 border-t border-slate-900 text-xs text-slate-600">
-      iachef.com &copy; 2026. Plataforma Nutricional e Inteligencia Culinaria.
+      iachef.com &copy; 2026. Plataforma Nutricional, Inteligencia Culinaria & Maridaje.
     </footer>
 
   </div>

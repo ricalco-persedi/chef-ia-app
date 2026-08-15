@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let selectedFiles = [];
 
-  // Speech Recognition (Dictado por Voz Nativo)
+  // Dictado por Voz (Web Speech API)
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (SpeechRecognition) {
     const recognition = new SpeechRecognition();
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     voiceBtn.style.display = 'none';
   }
 
-  // Detección de GPS
+  // Detección GPS
   geoBtn.addEventListener('click', () => {
     if ('geolocation' in navigator) {
       geoBtn.textContent = '🔄 Obteniendo...';
@@ -76,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function renderPhotoPreviews() {
-    // Limpiar vistas previas salvo el dropZone
     const previews = photoGrid.querySelectorAll('.photo-preview');
     previews.forEach(p => p.remove());
 
@@ -110,17 +109,21 @@ document.addEventListener('DOMContentLoaded', () => {
   chefForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Recolectar condiciones de salud marcadas
+    // Recolectar condiciones de salud
     const saludCheckboxes = document.querySelectorAll('input[name="salud"]:checked');
     let condicionesSalud = Array.from(saludCheckboxes).map(cb => cb.value);
     const saludTextoExtra = document.getElementById('saludEspecialTexto').value.trim();
     if (saludTextoExtra) condicionesSalud.push(saludTextoExtra);
+
+    // Recolectar preferencia de bebida
+    const preferenciaBebida = document.querySelector('input[name="preferenciaBebida"]:checked').value;
 
     const formData = new FormData();
     selectedFiles.forEach(file => formData.append('imagenes', file));
 
     formData.append('ubicacion', ubicacionInput.value.trim() || 'Internacional');
     formData.append('condicionesSalud', JSON.stringify(condicionesSalud));
+    formData.append('preferenciaBebida', preferenciaBebida);
     formData.append('modoCocina', document.querySelector('input[name="modoCocina"]:checked').value);
     formData.append('preferenciaTexto', preferenciaTexto.value.trim());
     formData.append('estiloComida', document.getElementById('estiloComida').value);
@@ -140,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Error procesando la solicitud');
 
-      modelBadge.textContent = `Salud: ${condicionesSalud.length} reglas activas`;
+      modelBadge.textContent = `Salud & Maridaje Activo`;
       recipeOutput.textContent = data.recetaSugerida;
       resultSection.classList.remove('hidden');
     } catch (err) {
