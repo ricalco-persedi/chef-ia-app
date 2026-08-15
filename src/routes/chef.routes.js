@@ -1,4 +1,3 @@
-// src/routes/chef.routes.js
 import { Router } from 'express';
 import { upload } from '../config/multer.js';
 import { ai, MODEL_CANDIDATES } from '../config/genai.js';
@@ -8,123 +7,111 @@ const router = Router();
 
 async function generateContentWithFallback(contents) {
   let lastError = null;
-
   for (const modelName of MODEL_CANDIDATES) {
     try {
-      console.log(`📡 Invocando modelo de IA con geolocalización: ${modelName}...`);
+      console.log(`📡 Invocando modelo con reglas de salud y multifoto: ${modelName}...`);
       const response = await ai.models.generateContent({
         model: modelName,
         contents: contents,
       });
-
       return { text: response.text, modelUsed: modelName };
     } catch (error) {
       console.warn(`⚠️ Fallo en modelo ${modelName}:`, error.message || error);
       lastError = error;
     }
   }
-
   throw lastError;
 }
 
-router.post('/analizar-imagen', upload.single('imagen'), async (req, res) => {
-  let imagePath = null;
+// Permite subir hasta 4 imágenes simultáneas
+router.post('/analizar-imagen', upload.array('imagenes', 4), async (req, res) => {
+  let uploadedPaths = [];
 
   try {
-    const { ubicacion, modoCocina, preferenciaTexto, estiloComida, comensales, sorprendeme } = req.body;
-    const isSorprendeme = sorprendeme === 'true';
+    const { ubicacion, condicionesSalud, modoCocina, preferenciaTexto, estiloComida, comensales, sorprendeme } = req.body;
+    const saludList = condicionesSalud ? JSON.parse(condicionesSalud) : [];
 
     let contents = [];
-    let contextInstructions = `- UBICACIÓN GEOGRÁFICA DEL USUARIO: "${ubicacion || 'Internacional'}". Adapta los términos de los ingredientes a la jerga y disponibilidad local de esta región.\n`;
 
-    if (req.file) {
-      imagePath = req.file.path;
-      const imageBuffer = fs.readFileSync(imagePath);
-      contents.push({
-        inlineData: {
-          data: imageBuffer.toString('base64'),
-          mimeType: req.file.mimetype
-        }
-      });
-      contextInstructions += `- Analiza la fotografía adjunta.\n`;
+    // Procesar múltiples imágenes recibidas
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        uploadedPaths.push(file.path);
+        const imageBuffer = fs.readFileSync(file.path);
+        contents.push({
+          inlineData: {
+            data: imageBuffer.toString('base64'),
+            mimeType: file.mimetype
+          }
+        });
+      }
     }
 
-    if (modoCocina === 'antojo') {
-      contextInstructions += `- Modo Antojo/Planificación: Genera una lista de compras completa adaptada a la región (${ubicacion}).\n`;
-    }
-
-    if (preferenciaTexto) {
-      contextInstructions += `- Antojo/Preferencia expresada: "${preferenciaTexto}".\n`;
-    }
-
-    if (isSorprendeme) {
-      contextInstructions += `- MODO SORPRESA ACTIVADO: Sorprende con un plato regional o fusión único.\n`;
-    }
+    let saludInstructions = saludList.length > 0 
+      ? `🚨 RESTRICCIONES MÉDICAS Y ALIMENTARIAS OBLIGATORIAS: ${saludList.join(', ')}. DEBES garantizar que NINGÚN ingrediente o preparación transgreda estas condiciones de salud. Si el usuario tiene diabetes, controla estrictamente los carbohidratos/azúcares; si es celíaco, garantiza 0% gluten.`
+      : `Sin restricciones de salud especificadas.`;
 
     const masterPrompt = `
-Eres un Executive Chef Profesional e Experto en Comercio Gastronómico Local.
+Eres un Nutricionista Clínico y Executive Chef Profesional.
 
-DATOS DE ENTRADA:
-- Ubicación del usuario: ${ubicacion || 'Global'}
-- Cantidad de comensales: ${comensales || 2} personas
+PARÁMETROS DEL USUARIO:
+- Ubicación: ${ubicacion || 'Global'}
+- Comensales: ${comensales || 2}
 - Estilo: ${estiloComida ? estiloComida.toUpperCase() : 'FAMILIAR'}
-${contextInstructions}
+- RESTRICCIONES DE SALUD: ${saludInstructions}
+- Alimentos descritos/ocultos/antojos: "${preferenciaTexto || 'Ninguno especifico'}"
+
+TAREA:
+1. Revisa TODAS las fotografías adjuntas (que muestran distintos estantes, alacenas o productos) y combina la información con el texto/dictado por voz.
+2. Crea una receta adaptada estrictamente a las RESTRICCIONES DE SALUD solicitadas.
+3. Sugiere 3 a 4 comercios locales económicos en ${ubicacion} para comprar los faltantes.
 
 INSTRUCCIONES DE RESPUESTA EN MARKDOWN:
 
-🍳 INGREDIENTES DETECTADOS / BASE LOCAL:
-- Lista de ingredientes usando la nomenclatura local de ${ubicacion}.
+🩺 ADAPTACIÓN DE SALUD Y NUTRICIÓN:
+- Breve resumen de cómo esta receta cumple con: ${saludList.join(', ') || 'Alimentación General'}.
 
-🛒 LISTA DE COMPRAS PARA ${comensales || 2} PORCIONES:
-- Ingredientes requeridos con sus medidas locales exactas.
+🍳 INGREDIENTES DETECTADOS / DISPONIBLES:
+- Lista de ingredientes identificados en las fotos y el dictado.
 
-📍 COMERCIOS RECOMENDADOS PARA COMPRAR EN EN ${ubicacion.toUpperCase()}:
-*(Muestra entre 3 y 4 opciones de tiendas, mercados locales o supermercados más económicos según datos de Google Maps/Places)*:
-1. 🏬 **[Nombre de Mercado / Verdulería / Carnicería Local 1]** - *Opción Económica Recomendada* (Dirección aproximada / Cómo llegar).
-2. 🛒 **[Supermercado o Red Local 2]** - *Variedad y ofertas regionales*.
-3. 🥩 **[Mercado Central / Local Especializado 3]** - *Ideal para productos frescos locales*.
+🛒 LISTA DE COMPRAS SUGERIDA (Para ${comensales} personas):
+- Ingredientes requeridos faltantes con nomenclatura de ${ubicacion}.
 
-👨‍🍳 RECETA SUGERIDA: [Nombre del Plato]
-- Tiempo estimado y Dificultad.
-- Cantidades exactas para ${comensales || 2} comensales.
+📍 COMERCIOS RECOMENDADOS EN ${ubicacion.toUpperCase()}:
+1. 🏬 **[Mercado/Tienda Local 1]** - *Opción Económica* (Dirección o zona).
+2. 🛒 **[Supermercado 2]** - *Variedad de productos especiales*.
+3. 🥩 **[Comercio de Cercanía 3]** - *Productos frescos localizados*.
 
-🥣 PASO A PASO:
+👨‍🍳 RECETA: [Nombre de la Receta]
+- Dificultad, tiempo y perfil nutricional clave (ej: Bajo en sodio, Índice Glucémico Bajo).
+- Ingredientes y cantidades exactas.
+
+🥣 PASO A PASO SEGURO:
 1. Paso 1.
 2. Paso 2.
 3. Paso 3.
 
-🍷 BEBIDA O MARIDAJE LOCAL RECOMENDADO:
-- Bebida típica o maridaje perfecto disponible en la región de ${ubicacion}.
-
-💡 SECRETO DEL CHEF (Tip Profesional):
-- El truco del cocinero profesional para este plato.
+💡 CONSEJO DEL CHEF & ADVERTENCIA NUTRICIONAL:
+- Un tip gastronómico junto con una nota sobre la conservación adecuada de los insumos.
 `;
 
     contents.push(masterPrompt);
 
     const result = await generateContentWithFallback(contents);
 
-    if (imagePath && fs.existsSync(imagePath)) {
-      fs.unlinkSync(imagePath);
-    }
+    // Limpiar imágenes subidas
+    uploadedPaths.forEach(p => { if (fs.existsSync(p)) fs.unlinkSync(p); });
 
     return res.json({
       success: true,
-      filename: req.file ? req.file.filename : null,
       modelUsed: result.modelUsed,
       recetaSugerida: result.text
     });
 
   } catch (error) {
-    if (imagePath && fs.existsSync(imagePath)) {
-      fs.unlinkSync(imagePath);
-    }
-
+    uploadedPaths.forEach(p => { if (fs.existsSync(p)) fs.unlinkSync(p); });
     console.error('❌ Error en /analizar-imagen:', error);
-    return res.status(500).json({ 
-      error: 'Error al procesar la solicitud con geolocalización.',
-      details: error.message 
-    });
+    return res.status(500).json({ error: 'Error interno en el servidor.', details: error.message });
   }
 });
 

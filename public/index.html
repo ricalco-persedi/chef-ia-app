@@ -3,26 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Título y SEO Básico -->
-  <title>IA Chef - Tu Asistente Gastronómico Inteligente & Guía Culinaria Local</title>
-  <meta name="description" content="Sube una foto de tu heladera o escribe tus antojos. IA Chef genera recetas personalizadas con porciones exactas, geolocalización de comercios locales y el Secreto del Chef.">
-  <meta name="keywords" content="recetas, ia, chef, cocina, ingredientes, heladera, comida, gastronomia, iachef">
-
-  <!-- Open Graph / Metaetiquetas para Redes Sociales (WhatsApp, Facebook, LinkedIn) -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://iachef.com/">
-  <meta property="og:title" content="IA Chef - Recetas Inteligentes con Comercios Cercanos">
-  <meta property="og:description" content="Descubre qué cocinar hoy según lo que tienes en tu heladera o tus antojos. Incluye lista de compras en comercios locales.">
-  <meta property="og:image" content="https://iachef.com/og-image.jpg">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://iachef.com/">
-  <meta name="twitter:title" content="IA Chef - Asistente Gastronómico Inteligente">
-  <meta name="twitter:description" content="Sube una foto de tus ingredientes y crea recetas a medida con la IA más rápida.">
-
-  <!-- Tailwind CSS vía CDN -->
+  <title>IA Chef | Tu Asistente Culinario Nutricional en iachef.com</title>
+  <meta name="description" content="Recetas inteligentes personalizadas para diabéticos, celíacos, veganos y dietas médicas. Análisis multifoto y dictado por voz.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -30,32 +12,30 @@
 
   <div class="min-h-full flex flex-col justify-between p-4 md:p-8">
     
-    <!-- Encabezado con Dominio Corporativo -->
     <header class="max-w-4xl mx-auto w-full text-center space-y-3 my-6">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
-        📍 iachef.com - Inteligencia Culinaria Geo-Localizada
+        📍 iachef.com - Salud, Adaptación Médica & Mapeo Multimodal
       </div>
       <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">
         IA <span class="text-amber-500">Chef</span>
       </h1>
       <p class="text-slate-400 max-w-lg mx-auto text-sm md:text-base">
-        Tu asistente inteligente de cocina: ajusta tus preferencias, sube tu foto o encuentra ingredientes en negocios locales.
+        Nutrición adaptada a tu condición de salud, escaneo multifoto de tu alacena y guía de comercios cercanos.
       </p>
     </header>
 
-    <!-- Contenido Principal -->
     <main class="max-w-4xl mx-auto w-full space-y-8 flex-1">
       
       <section class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-2xl space-y-6">
         
         <form id="chefForm" class="space-y-6">
           
-          <!-- Campo de Ubicación Geográfica -->
+          <!-- Ubicación Geográfica -->
           <div class="space-y-2 bg-slate-950/80 p-4 rounded-2xl border border-amber-500/30">
             <label for="ubicacionTexto" class="block text-sm font-semibold text-amber-400 flex items-center justify-between">
-              <span>📍 ¿En qué ciudad o región te encuentras?</span>
-              <button type="button" id="geoBtn" class="text-xs text-amber-400 hover:underline flex items-center gap-1 font-normal">
-                🎯 Usar mi ubicación actual
+              <span>📍 Ubicación (Para comercios cercanos y jerga local)</span>
+              <button type="button" id="geoBtn" class="text-xs text-amber-400 hover:underline font-normal">
+                🎯 Usar mi GPS
               </button>
             </label>
             <input 
@@ -63,124 +43,165 @@
               id="ubicacionTexto" 
               placeholder="Ej: Mendoza, Argentina / Madrid, España / Ciudad de México" 
               value="Mendoza, Argentina"
-              class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-amber-500 transition-all"
+              class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-amber-500"
             >
-            <p class="text-[11px] text-slate-500">Servirá para sugerir los comercios más cercanos en iachef.com.</p>
           </div>
 
-          <!-- 1. Modo de Cocina -->
+          <!-- 🩺 Perfiles de Salud y Dietas Especiales (NUEVO) -->
+          <div class="space-y-3 bg-rose-950/20 p-4 rounded-2xl border border-rose-500/30">
+            <label class="block text-sm font-semibold text-rose-400">
+              🩺 Condiciones de Salud y Perfiles Alimentarios (Selecciona los que apliquen)
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 text-xs">
+              <label class="flex items-center gap-2 p-2 bg-slate-950/60 border border-slate-800 rounded-lg cursor-pointer hover:border-rose-500/50">
+                <input type="checkbox" name="salud" value="Diabético Tipo 1 (Bajo Índice Glucémico)" class="accent-rose-500">
+                <span>Diabético Tipo 1</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-slate-950/60 border border-slate-800 rounded-lg cursor-pointer hover:border-rose-500/50">
+                <input type="checkbox" name="salud" value="Diabético Tipo 2 (Control Glucemia)" class="accent-rose-500">
+                <span>Diabético Tipo 2</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-slate-950/60 border border-slate-800 rounded-lg cursor-pointer hover:border-rose-500/50">
+                <input type="checkbox" name="salud" value="Celíaco (Strictly Sin TACC / Sin Gluten)" class="accent-rose-500">
+                <span>Celíaco (Sin Gluten)</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-slate-950/60 border border-slate-800 rounded-lg cursor-pointer hover:border-rose-500/50">
+                <input type="checkbox" name="salud" value="Hipertensión (Sin Sal Añadida / Bajo Sodio)" class="accent-rose-500">
+                <span>Hipertensión</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-slate-950/60 border border-slate-800 rounded-lg cursor-pointer hover:border-rose-500/50">
+                <input type="checkbox" name="salud" value="Vegano (100% Origen Vegetal)" class="accent-rose-500">
+                <span>Vegano</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-slate-950/60 border border-slate-800 rounded-lg cursor-pointer hover:border-rose-500/50">
+                <input type="checkbox" name="salud" value="Vegetariano" class="accent-rose-500">
+                <span>Vegetariano</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-slate-950/60 border border-slate-800 rounded-lg cursor-pointer hover:border-rose-500/50">
+                <input type="checkbox" name="salud" value="Intolerancia a la Lactosa" class="accent-rose-500">
+                <span>Sin Lactosa</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-slate-950/60 border border-slate-800 rounded-lg cursor-pointer hover:border-rose-500/50">
+                <input type="checkbox" name="salud" value="Dieta Baja en FODMAP" class="accent-rose-500">
+                <span>Bajo en FODMAP</span>
+              </label>
+            </div>
+            <input 
+              type="text" 
+              id="saludEspecialTexto" 
+              placeholder="Otra enfermedad o indicación médica (ej: Insuficiencia renal, Gastritis, Alergia al maní)..." 
+              class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-rose-500"
+            >
+          </div>
+
+          <!-- Modo de Planificación -->
           <div class="space-y-3">
             <label class="block text-sm font-medium text-slate-300">
-              1. ¿Cómo deseas planificar tu comida hoy?
+              ¿Cómo quieres generar la receta?
             </label>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <label class="flex items-center gap-3 p-4 bg-slate-950 border border-slate-800 rounded-2xl cursor-pointer hover:border-amber-500/50 transition-all has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/5">
+              <label class="flex items-center gap-3 p-4 bg-slate-950 border border-slate-800 rounded-2xl cursor-pointer hover:border-amber-500/50 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/5">
                 <input type="radio" name="modoCocina" value="heladera" checked class="text-amber-500 focus:ring-amber-500">
                 <div>
-                  <p class="font-semibold text-sm text-slate-200">Usar lo que tengo</p>
-                  <p class="text-xs text-slate-500">Subir foto de la heladera o alacena</p>
+                  <p class="font-semibold text-sm text-slate-200">Escanear mis alimentos</p>
+                  <p class="text-xs text-slate-500">Fotos de heladera, alacena + Voz</p>
                 </div>
               </label>
-
-              <label class="flex items-center gap-3 p-4 bg-slate-950 border border-slate-800 rounded-2xl cursor-pointer hover:border-amber-500/50 transition-all has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/5">
+              <label class="flex items-center gap-3 p-4 bg-slate-950 border border-slate-800 rounded-2xl cursor-pointer hover:border-amber-500/50 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/5">
                 <input type="radio" name="modoCocina" value="antojo" class="text-amber-500 focus:ring-amber-500">
                 <div>
                   <p class="font-semibold text-sm text-slate-200">Tengo un antojo / Comprar todo</p>
-                  <p class="text-xs text-slate-500">Guiar con comercios locales sugeridos</p>
+                  <p class="text-xs text-slate-500">Guiar con comercios locales recomendados</p>
                 </div>
               </label>
             </div>
           </div>
 
-          <!-- 2. Área de Foto -->
-          <div id="dropZoneContainer" class="space-y-2">
-            <label class="block text-sm font-medium text-slate-300">
-              2. Fotografía tus ingredientes <span class="text-slate-500 text-xs">(Opcional si es por antojo)</span>
-            </label>
-            <div id="dropZone" class="border-2 border-dashed border-slate-700 hover:border-amber-500/50 bg-slate-950/50 rounded-2xl p-6 text-center transition-all cursor-pointer group">
-              <input type="file" id="imageInput" accept="image/*" class="hidden">
-              <div id="dropZoneContent" class="space-y-2">
-                <div class="w-10 h-10 rounded-full bg-slate-800 group-hover:bg-amber-500/20 group-hover:text-amber-400 text-slate-400 flex items-center justify-center mx-auto transition-all">📸</div>
-                <p class="text-xs font-semibold text-slate-300">Haz clic para adjuntar o arrastra tu imagen aquí</p>
+          <!-- 📸 Carga Multifoto (Hasta 4 imágenes) & 🎙️ Micrófono de Voz (NUEVO) -->
+          <div class="space-y-3 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
+            <div class="flex items-center justify-between">
+              <label class="block text-sm font-medium text-slate-300">
+                Fotografía tus estantes, alacenas y productos apilados <span class="text-xs text-slate-500">(Hasta 4 fotos)</span>
+              </label>
+              <button type="button" id="voiceBtn" class="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 border border-amber-500/40 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all">
+                🎙️ <span id="voiceBtnText">Dictar alimentos por voz</span>
+              </button>
+            </div>
+
+            <!-- Previsualización Multifoto -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="photoGrid">
+              <div id="dropZone" class="border-2 border-dashed border-slate-700 hover:border-amber-500/50 bg-slate-900 rounded-xl p-4 text-center cursor-pointer flex flex-col items-center justify-center min-h-[100px]">
+                <input type="file" id="imageInput" accept="image/*" multiple class="hidden">
+                <span class="text-2xl">➕</span>
+                <span class="text-[11px] text-slate-400 mt-1 font-semibold">Subir fotos</span>
               </div>
-              <div id="previewContainer" class="hidden space-y-2">
-                <img id="imagePreview" src="" alt="Vista previa" class="max-h-40 mx-auto rounded-xl border border-slate-700 object-cover">
-                <button type="button" id="removeImageBtn" class="text-xs text-rose-400 hover:text-rose-300 underline font-medium">Cambiar imagen</button>
-              </div>
+            </div>
+
+            <!-- Dictado / Texto Complementario de Productos Ocultos -->
+            <div class="space-y-1">
+              <label for="preferenciaTexto" class="block text-xs font-medium text-slate-400">
+                Describe alimentos ocultos, apilados o tus antojos de hoy:
+              </label>
+              <textarea 
+                id="preferenciaTexto" 
+                rows="2"
+                placeholder="Ej: Tengo atún detrás del arroz, un zapallo guardado al fondo de la alacena y quiero cocinar algo al horno..." 
+                class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-amber-500"
+              ></textarea>
             </div>
           </div>
 
-          <!-- 3. Preferencias de Comida -->
-          <div class="space-y-2">
-            <label for="preferenciaTexto" class="block text-sm font-medium text-slate-300">
-              3. Preferencia o antojo específico
-            </label>
-            <input 
-              type="text" 
-              id="preferenciaTexto" 
-              placeholder="Ej: Pasta casera, carne asada, plato regional fresco..." 
-              class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-amber-500 transition-all"
-            >
-          </div>
-
-          <!-- 4. Filtros de Estilo, Comensales y Sorpresa -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-            <div class="space-y-2">
+          <!-- Filtros de Estilo y Comensales -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="space-y-1">
               <label for="estiloComida" class="block text-xs font-medium text-slate-400">Estilo de receta</label>
-              <select id="estiloComida" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-amber-500">
-                <option value="rapida">⚡ Comida Rápida (Expres)</option>
-                <option value="familiar" selected>🏠 Familiar (Casera / Tradicional)</option>
-                <option value="gourmet">✨ Gourmet (Para lucirse con invitados)</option>
+              <select id="estiloComida" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
+                <option value="rapida">⚡ Comida Rápida (Exprés)</option>
+                <option value="familiar" selected>🏠 Casera Tradicional</option>
+                <option value="gourmet">✨ Gourmet</option>
               </select>
             </div>
 
-            <div class="space-y-2">
-              <label for="comensales" class="block text-xs font-medium text-slate-400">Número de Comensales</label>
-              <input type="number" id="comensales" min="1" max="20" value="2" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-amber-500">
+            <div class="space-y-1">
+              <label for="comensales" class="block text-xs font-medium text-slate-400">Comensales</label>
+              <input type="number" id="comensales" min="1" max="20" value="2" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
             </div>
 
-            <div class="space-y-2 flex flex-col justify-end">
-              <label class="flex items-center gap-3 p-2.5 bg-slate-950 border border-slate-800 rounded-xl cursor-pointer hover:border-amber-500/40 transition-all">
-                <input type="checkbox" id="sorprendeme" class="w-4 h-4 rounded text-amber-500 focus:ring-amber-500">
+            <div class="flex items-end">
+              <label class="flex items-center gap-2 p-2.5 bg-slate-950 border border-slate-800 rounded-xl cursor-pointer w-full">
+                <input type="checkbox" id="sorprendeme" class="accent-amber-500">
                 <span class="text-xs font-semibold text-amber-400">🎲 ¡Sorpréndeme!</span>
               </label>
             </div>
           </div>
 
-          <!-- Botón de Envío -->
           <button
             type="submit"
             id="submitBtn"
             class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3.5 px-6 rounded-2xl transition-all shadow-lg shadow-amber-500/20 active:scale-[0.99] flex items-center justify-center gap-2"
           >
-            <span>👨‍🍳 Generar Receta con Guía de Compras Local</span>
+            <span>👨‍🍳 Generar Receta Personalizada & Ruta de Compras</span>
           </button>
         </form>
       </section>
 
-      <!-- Estado de Carga -->
       <section id="loadingState" class="hidden bg-slate-900 border border-slate-800 rounded-3xl p-8 text-center space-y-4 animate-pulse">
         <div class="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-        <p class="text-slate-300 font-semibold">IA Chef está localizando mercados en tu zona y creando la receta...</p>
+        <p class="text-slate-300 font-semibold">Analizando imágenes, condiciones de salud y negocios locales en iachef.com...</p>
       </section>
 
-      <!-- Panel de Resultados -->
       <section id="resultSection" class="hidden bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-4">
         <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-          <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">
-            👨‍🍳 Tu Receta & Ruta de Compras
-          </h2>
+          <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">👨‍🍳 Tu Plan Nutricional & Receta</h2>
           <span id="modelBadge" class="text-xs font-mono bg-slate-800 text-slate-400 px-2.5 py-1 rounded-md"></span>
         </div>
-        
-        <div id="recipeOutput" class="prose prose-invert max-w-none text-slate-200 text-sm md:text-base leading-relaxed whitespace-pre-line font-sans">
-        </div>
+        <div id="recipeOutput" class="prose prose-invert max-w-none text-slate-200 text-sm md:text-base leading-relaxed whitespace-pre-line font-sans"></div>
       </section>
 
     </main>
 
     <footer class="max-w-4xl mx-auto w-full text-center py-6 border-t border-slate-900 text-xs text-slate-600">
-      iachef.com &copy; 2026. Todos los derechos reservados.
+      iachef.com &copy; 2026. Plataforma Nutricional e Inteligencia Culinaria.
     </footer>
 
   </div>
