@@ -230,15 +230,25 @@
   <script src="app.js"></script>
 
 <!-- ========================================== -->
-<!-- FOOTER - SECCIÓN DE LEGALES                -->
+<!-- FOOTER - SECCIÓN DE LEGALES Y CONTACTO     -->
 <!-- ========================================== -->
 <footer class="w-full bg-slate-900 border-t border-slate-800 py-6 mt-12 text-slate-400 text-xs text-center">
   <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-    <p class="font-semibold text-slate-300">IA CHEF © 2026 — Todos los derechos reservados</p>
+    
+    <!-- Identidad y Contacto -->
+    <div class="text-center sm:text-left">
+      <p class="font-semibold text-slate-300">IA CHEF © 2026 — Todos los derechos reservados</p>
+      <p class="mt-1 text-slate-500">
+        Contacto: <a href="mailto:consultas@persedi.com" class="text-amber-500 hover:underline">consultas@persedi.com</a>
+      </p>
+    </div>
+
+    <!-- Enlaces Legales -->
     <div class="flex gap-4">
       <button onclick="openLegalModal('privacy')" class="hover:text-amber-400 underline cursor-pointer">Política de Privacidad</button>
       <button onclick="openLegalModal('terms')" class="hover:text-amber-400 underline cursor-pointer">Términos y Condiciones</button>
     </div>
+
   </div>
 </footer>
 
@@ -266,7 +276,7 @@
       title.innerText = 'POLÍTICA DE PRIVACIDAD (Ley Argentina N° 25.326)';
       content.innerHTML = `
         <p><strong>1. Protección de Datos:</strong> Conforme a la Ley N° 25.326 de la Rep. Argentina, iachef.com resguarda la información del usuario. Las imágenes e ingredientes ingresados se procesan únicamente de forma temporal para generar la receta.</p>
-        <p><strong>2. Derechos ARCO:</strong> El usuario tiene derecho de acceso, rectificación y supresión de sus datos personales conforme al Art. 14 de la Ley 25.326.</p>
+        <p><strong>2. Derechos ARCO:</strong> El usuario tiene derecho de acceso, rectificación y supresión de sus datos personales conforme al Art. 14 de la Ley 25.326. Consultas a: consultas@persedi.com.</p>
       `;
     } else {
       title.innerText = 'TÉRMINOS, CONDICIONES Y EXENCIÓN DE RESPONSABILIDAD';
