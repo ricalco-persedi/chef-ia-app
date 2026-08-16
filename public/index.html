@@ -228,5 +228,57 @@
   </div>
 
   <script src="app.js"></script>
+
+<!-- ========================================== -->
+<!-- FOOTER - SECCIÓN DE LEGALES                -->
+<!-- ========================================== -->
+<footer class="w-full bg-slate-900 border-t border-slate-800 py-6 mt-12 text-slate-400 text-xs text-center">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <p class="font-semibold text-slate-300">IA CHEF © 2026 — Todos los derechos reservados</p>
+    <div class="flex gap-4">
+      <button onclick="openLegalModal('privacy')" class="hover:text-amber-400 underline cursor-pointer">Política de Privacidad</button>
+      <button onclick="openLegalModal('terms')" class="hover:text-amber-400 underline cursor-pointer">Términos y Condiciones</button>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL FLOTANTE LEGAL -->
+<div id="legalModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl overflow-hidden">
+    <div class="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+      <h3 id="legalModalTitle" class="text-base font-bold text-amber-400"></h3>
+      <button onclick="document.getElementById('legalModal').classList.add('hidden')" class="text-slate-400 hover:text-white px-2 py-1 text-lg font-bold cursor-pointer">✕</button>
+    </div>
+    <div class="p-6 overflow-y-auto text-xs text-slate-300 leading-relaxed text-justify space-y-3" id="legalModalContent"></div>
+    <div class="p-3 border-t border-slate-800 bg-slate-950 flex justify-end">
+      <button onclick="document.getElementById('legalModal').classList.add('hidden')" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs cursor-pointer">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openLegalModal(type) {
+    const modal = document.getElementById('legalModal');
+    const title = document.getElementById('legalModalTitle');
+    const content = document.getElementById('legalModalContent');
+    
+    if (type === 'privacy') {
+      title.innerText = 'POLÍTICA DE PRIVACIDAD (Ley Argentina N° 25.326)';
+      content.innerHTML = `
+        <p><strong>1. Protección de Datos:</strong> Conforme a la Ley N° 25.326 de la Rep. Argentina, iachef.com resguarda la información del usuario. Las imágenes e ingredientes ingresados se procesan únicamente de forma temporal para generar la receta.</p>
+        <p><strong>2. Derechos ARCO:</strong> El usuario tiene derecho de acceso, rectificación y supresión de sus datos personales conforme al Art. 14 de la Ley 25.326.</p>
+      `;
+    } else {
+      title.innerText = 'TÉRMINOS, CONDICIONES Y EXENCIÓN DE RESPONSABILIDAD';
+      content.innerHTML = `
+        <p><strong>⚠️ ADVERTENCIA DE SALUD Y SEGURIDAD ALIMENTARIA:</strong> iachef.com es un asistente automatizado de carácter informativo y recreativo. No sustituye la evaluación médica ni nutricional.</p>
+        <p><strong>Exención por Pericia del Usuario:</strong> La revisión, manipulación, cocción adecuada (alcanzar temperaturas seguras para prevenir ETAs), comprobación de la cadena de frío, fechas de caducidad y verificación de alérgenos (celiaquía, alergias, etc.) son de <strong>exclusiva responsabilidad del usuario</strong>. iachef.com no asume responsabilidad civil ni penal por la preparación o consumo de alimentos.</p>
+        <p><strong>Mayoría de Edad y Jurisdicción:</strong> Servicio reservado a mayores de 18 años. Todo diferendo se somete a los Tribunales Ordinarios de la Provincia de Mendoza, Argentina.</p>
+      `;
+    }
+    modal.classList.remove('hidden');
+  }
+</script>
+
 </body>
 </html>
