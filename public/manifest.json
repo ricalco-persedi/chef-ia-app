@@ -1,0 +1,25 @@
+{
+  "short_name": "IAChef",
+  "name": "IAChef - Tu Asistente de Cocina con Inteligencia Artificial",
+  "description": "Genera recetas personalizadas al instante con IA según los ingredientes que tienes en casa.",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#10b981",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/"
+}
