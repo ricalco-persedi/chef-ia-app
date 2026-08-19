@@ -9,13 +9,13 @@
   <meta name="description" content="Recetas inteligentes personalizadas para diferentes condiciones de salud y gustos, maridaje de bebidas y compras locales.">
   <link rel="canonical" href="https://iachef.com/">
 
-  <!-- Favicon e Iconos (Soluciona el Error 404 en Consola) -->
-  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png">
-  <link rel="shortcut icon" href="/icons/icon-192x192.png" type="image/png">
-  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <!-- Favicon e Iconos (Rutas Relativas) -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+  <link rel="shortcut icon" href="icons/icon-192x192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
 
   <!-- Configuración PWA y Compatibilidad Móvil Unificada -->
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#10b981">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -28,11 +28,9 @@
   <meta property="og:description" content="Descubre qué cocinar hoy con los ingredientes que tienes a la mano usando IA.">
   <meta property="og:image" content="https://iachef.com/icons/icon-512x512.png">
 
-  <!-- Tailwind CSS CDN Optimizado -->
-  <link rel="stylesheet" href="/css/tailwind.min.css">
-
-  <!-- Estilos Personalizados del Sitio -->
-  <link rel="stylesheet" href="styles.css">
+  <!-- Tailwind CSS CDN Optimizado (Fallback seguro por CDN + CSS Local relativo con cache-buster v5.0) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css?v=5.0">
 
   <!-- ============================================================ -->
   <!-- ESTILOS DEL BANNER FLOTANTE PERSONALIZADO PWA (IACHEF)       -->
@@ -325,7 +323,7 @@
           <button
             type="submit"
             id="submitBtn"
-            class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3.5 px-6 rounded-2xl transition-all shadow-lg shadow-amber-500/20 active:scale-[0.99] flex items-center justify-center gap-2"
+            class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3.5 px-6 rounded-2xl transition-all shadow-lg shadow-amber-500/20 active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
           >
             <span>👨‍🍳 Generar Receta, Maridaje & Ruta de Compras</span>
           </button>
@@ -353,83 +351,83 @@
 
   </div>
 
-<!-- ========================================== -->
-<!-- FOOTER - SECCIÓN DE LEGALES Y CONTACTO     -->
-<!-- ========================================== -->
-<footer class="w-full bg-slate-900 border-t border-slate-800 py-6 mt-12 text-slate-400 text-xs text-center">
-  <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-    
-    <!-- Identidad y Contacto -->
-    <div class="text-center sm:text-left">
-      <p class="font-semibold text-slate-300">IA CHEF © 2026 — Todos los derechos reservados</p>
-      <p class="mt-1 text-slate-500">
-        Contacto: <a href="mailto:consultas@persedi.com" class="text-amber-500 hover:underline">consultas@persedi.com</a>
-      </p>
-    </div>
+  <!-- ========================================== -->
+  <!-- FOOTER - SECCIÓN DE LEGALES Y CONTACTO     -->
+  <!-- ========================================== -->
+  <footer class="w-full bg-slate-900 border-t border-slate-800 py-6 mt-12 text-slate-400 text-xs text-center">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+      
+      <!-- Identidad y Contacto -->
+      <div class="text-center sm:text-left">
+        <p class="font-semibold text-slate-300">IA CHEF © 2026 — Todos los derechos reservados</p>
+        <p class="mt-1 text-slate-500">
+          Contacto: <a href="mailto:consultas@persedi.com" class="text-amber-500 hover:underline">consultas@persedi.com</a>
+        </p>
+      </div>
 
-    <!-- Enlaces Legales -->
-    <div class="flex gap-4">
-      <button onclick="openLegalModal('privacy')" class="hover:text-amber-400 underline cursor-pointer">Política de Privacidad</button>
-      <button onclick="openLegalModal('terms')" class="hover:text-amber-400 underline cursor-pointer">Términos y Condiciones</button>
-    </div>
+      <!-- Enlaces Legales -->
+      <div class="flex gap-4">
+        <button onclick="openLegalModal('privacy')" class="hover:text-amber-400 underline cursor-pointer">Política de Privacidad</button>
+        <button onclick="openLegalModal('terms')" class="hover:text-amber-400 underline cursor-pointer">Términos y Condiciones</button>
+      </div>
 
+    </div>
+  </footer>
+
+  <!-- MODAL FLOTANTE LEGAL -->
+  <div id="legalModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+        <h3 id="legalModalTitle" class="text-base font-bold text-amber-400"></h3>
+        <button onclick="document.getElementById('legalModal').classList.add('hidden')" class="text-slate-400 hover:text-white px-2 py-1 text-lg font-bold cursor-pointer">✕</button>
+      </div>
+      <div class="p-6 overflow-y-auto text-xs text-slate-300 leading-relaxed text-justify space-y-3" id="legalModalContent"></div>
+      <div class="p-3 border-t border-slate-800 bg-slate-950 flex justify-end">
+        <button onclick="document.getElementById('legalModal').classList.add('hidden')" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs cursor-pointer">Cerrar</button>
+      </div>
+    </div>
   </div>
-</footer>
 
-<!-- MODAL FLOTANTE LEGAL -->
-<div id="legalModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-  <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl overflow-hidden">
-    <div class="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
-      <h3 id="legalModalTitle" class="text-base font-bold text-amber-400"></h3>
-      <button onclick="document.getElementById('legalModal').classList.add('hidden')" class="text-slate-400 hover:text-white px-2 py-1 text-lg font-bold cursor-pointer">✕</button>
-    </div>
-    <div class="p-6 overflow-y-auto text-xs text-slate-300 leading-relaxed text-justify space-y-3" id="legalModalContent"></div>
-    <div class="p-3 border-t border-slate-800 bg-slate-950 flex justify-end">
-      <button onclick="document.getElementById('legalModal').classList.add('hidden')" class="px-4 py-2 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs cursor-pointer">Cerrar</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  function openLegalModal(type) {
-    const modal = document.getElementById('legalModal');
-    const title = document.getElementById('legalModalTitle');
-    const content = document.getElementById('legalModalContent');
-    
-    if (type === 'privacy') {
-      title.innerText = 'POLÍTICA DE PRIVACIDAD (Ley Argentina N° 25.326)';
-      content.innerHTML = `
-        <p><strong>1. Protección de Datos:</strong> Conforme a la Ley N° 25.326 de la Rep. Argentina, iachef.com resguarda la información del usuario. Las imágenes e ingredientes ingresados se procesan únicamente de forma temporal para generar la receta.</p>
-        <p><strong>2. Derechos ARCO:</strong> El usuario tiene derecho de acceso, rectificación y supresión de sus datos personales conforme al Art. 14 de la Ley 25.326. Consultas a: consultas@persedi.com.</p>
-      `;
-    } else {
-      title.innerText = 'TÉRMINOS, CONDICIONES Y EXENCIÓN DE RESPONSABILIDAD';
-      content.innerHTML = `
-        <p><strong>⚠️ ADVERTENCIA DE SALUD Y SEGURIDAD ALIMENTARIA:</strong> iachef.com es un asistente automatizado de carácter informativo y recreativo. No sustituye la evaluación médica ni nutricional.</p>
-        <p><strong>Exención por Pericia del Usuario:</strong> La revisión, manipulación, cocción adecuada (alcanzar temperaturas seguras para prevenir ETAs), comprobación de la cadena de frío, fechas de caducidad y verificación de alérgenos (celiaquía, alergias, etc.) son de <strong>exclusiva responsabilidad del usuario</strong>. iachef.com no asume responsabilidad civil ni penal por la preparación o consumo de alimentos.</p>
-        <p><strong>Mayoría de Edad y Jurisdicción:</strong> Servicio reservado a mayores de 18 años. Todo diferendo se somete a los Tribunales Ordinarios de la Provincia de Mendoza, Argentina.</p>
-      `;
+  <script>
+    function openLegalModal(type) {
+      const modal = document.getElementById('legalModal');
+      const title = document.getElementById('legalModalTitle');
+      const content = document.getElementById('legalModalContent');
+      
+      if (type === 'privacy') {
+        title.innerText = 'POLÍTICA DE PRIVACIDAD (Ley Argentina N° 25.326)';
+        content.innerHTML = `
+          <p><strong>1. Protección de Datos:</strong> Conforme a la Ley N° 25.326 de la Rep. Argentina, iachef.com resguarda la información del usuario. Las imágenes e ingredientes ingresados se procesan únicamente de forma temporal para generar la receta.</p>
+          <p><strong>2. Derechos ARCO:</strong> El usuario tiene derecho de acceso, rectificación y supresión de sus datos personales conforme al Art. 14 de la Ley 25.326. Consultas a: consultas@persedi.com.</p>
+        `;
+      } else {
+        title.innerText = 'TÉRMINOS, CONDICIONES Y EXENCIÓN DE RESPONSABILIDAD';
+        content.innerHTML = `
+          <p><strong>⚠️ ADVERTENCIA DE SALUD Y SEGURIDAD ALIMENTARIA:</strong> iachef.com es un asistente automatizado de carácter informativo y recreativo. No sustituye la evaluación médica ni nutricional.</p>
+          <p><strong>Exención por Pericia del Usuario:</strong> La revisión, manipulación, cocción adecuada (alcanzar temperaturas seguras para prevenir ETAs), comprobación de la cadena de frío, fechas de caducidad y verificación de alérgenos (celiaquía, alergias, etc.) son de <strong>exclusiva responsabilidad del usuario</strong>. iachef.com no asume responsabilidad civil ni penal por la preparación o consumo de alimentos.</p>
+          <p><strong>Mayoría de Edad y Jurisdicción:</strong> Servicio reservado a mayores de 18 años. Todo diferendo se somete a los Tribunales Ordinarios de la Provincia de Mendoza, Argentina.</p>
+        `;
+      }
+      modal.classList.remove('hidden');
     }
-    modal.classList.remove('hidden');
-  }
-</script>
+  </script>
 
-<!-- Registro Script del Service Worker -->
+  <!-- Registro Script del Service Worker (Ruta Relativa sw.js) -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('sw.js?v=5.0')
           .then((reg) => console.log('Service Worker registrado con éxito:', reg.scope))
           .catch((err) => console.error('Error al registrar Service Worker:', err));
       });
     }
   </script>
 
-<!-- ============================================================ -->
+  <!-- ============================================================ -->
   <!-- ESTRUCTURA DEL BANNER FLOTANTE DE INSTALACIÓN PWA            -->
   <!-- ============================================================ -->
   <div id="pwaInstallBanner" class="pwa-install-banner" aria-hidden="true">
-    <img src="/icons/icon-192x192.png" alt="IAChef App" class="pwa-banner-icon" />
+    <img src="icons/icon-192x192.png" alt="IAChef App" class="pwa-banner-icon" />
     <div class="pwa-banner-info">
       <h4 class="pwa-banner-title">Instala IAChef</h4>
       <p class="pwa-banner-desc">Acceso rápido desde tu pantalla de inicio.</p>
@@ -440,8 +438,8 @@
     </div>
   </div>
 
-  <!-- Cargar app.js AHORA SÍ al final para encontrar el HTML del Banner cargado -->
-<script src="/app.js"></script>
+  <!-- Carga de app.js con ruta relativa e inyección de versión v5.0 -->
+  <script src="app.js?v=5.0"></script>
 
 </body>
 </html>
