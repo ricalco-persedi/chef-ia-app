@@ -154,3 +154,93 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// =============================================================
+// CONTROLADOR UX INTELIGENTE DEL BANNER PWA (IACHEF)
+// =============================================================
+(function initPWABanner() {
+  let deferredPrompt = null;
+
+  const installBanner = document.getElementById('pwaInstallBanner');
+  const btnInstall = document.getElementById('btnPwaInstall');
+  const btnClose = document.getElementById('btnPwaClose');
+
+  // Días de espera si el usuario presiona la 'X' para cerrar
+  const DAYS_TO_WAIT_AFTER_DISMISS = 7;
+
+  function shouldShowBanner() {
+    // 1. Si la PWA ya está ejecutándose como aplicación instalada, NO mostrar
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+    if (isStandalone) return false;
+
+    // 2. Comprobar fecha de último descarte en el navegador
+    const dismissedTimestamp = localStorage.getItem('pwaBannerDismissedTimestamp');
+    if (dismissedTimestamp) {
+      const now = new Date().getTime();
+      const daysPassed = (now - parseInt(dismissedTimestamp, 10)) / (1000 * 60 * 60 * 24);
+
+      // Si pasaron menos de 7 días, NO mostrar
+      if (daysPassed < DAYS_TO_WAIT_AFTER_DISMISS) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  // Capturar evento de instalación nativo
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    if (shouldShowBanner()) {
+      // Retrasar 2.5 segundos para no interrumpir la carga inicial del usuario
+      setTimeout(() => {
+        if (installBanner && deferredPrompt) {
+          installBanner.classList.add('active');
+          installBanner.setAttribute('aria-hidden', 'false');
+        }
+      }, 2500);
+    }
+  });
+
+  // Evento: Botón 'Instalar'
+  if (btnInstall) {
+    btnInstall.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+
+      if (installBanner) {
+        installBanner.classList.remove('active');
+      }
+
+      deferredPrompt.prompt();
+
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`Resultado de instalación PWA: ${outcome}`);
+
+      deferredPrompt = null;
+    });
+  }
+
+  // Evento: Botón 'X' (Cerrar)
+  if (btnClose) {
+    btnClose.addEventListener('click', () => {
+      if (installBanner) {
+        installBanner.classList.remove('active');
+      }
+
+      // Guardar fecha/hora actual en memoria permanente del cliente
+      localStorage.setItem('pwaBannerDismissedTimestamp', new Date().getTime().toString());
+      console.log(`Banner PWA ocultado durante ${DAYS_TO_WAIT_AFTER_DISMISS} días.`);
+    });
+  }
+
+  // Evento: Instalación completada con éxito
+  window.addEventListener('appinstalled', () => {
+    if (installBanner) {
+      installBanner.classList.remove('active');
+    }
+    deferredPrompt = null;
+    localStorage.setItem('pwaInstalled', 'true');
+  });
+})();
