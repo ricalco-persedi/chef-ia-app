@@ -1,4 +1,4 @@
-const CACHE_NAME = 'iachef-v7';
+const CACHE_NAME = 'iachef-v8';
 
 const ASSETS_TO_CACHE = [
   './',
