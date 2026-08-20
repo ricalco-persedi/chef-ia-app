@@ -1,26 +1,22 @@
-const CACHE_NAME = 'iachef-v5';
+const CACHE_NAME = 'iachef-v7';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './styles.css?v=5.0',
-  './app.js?v=5.0',
+  './styles.css',
+  './app.js',
   './manifest.json',
   './icons/icon-192x192.png',
   './icons/icon-512x512.png'
 ];
 
-// Instalar y precachear
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE))
   );
   self.skipWaiting();
 });
 
-// Activar y purgar cachés previas rotas
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -36,7 +32,6 @@ self.addEventListener('activate', (event) => {
   return self.clients.claim();
 });
 
-// Estrategia Network First con fallback a Cache
 self.addEventListener('fetch', (event) => {
   if (event.request.url.includes('/api/') || event.request.method !== 'GET') {
     return;
@@ -53,8 +48,6 @@ self.addEventListener('fetch', (event) => {
         }
         return response;
       })
-      .catch(() => {
-        return caches.match(event.request);
-      })
+      .catch(() => caches.match(event.request))
   );
 });
