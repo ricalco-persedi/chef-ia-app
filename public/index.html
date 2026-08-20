@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="es" class="h-full bg-slate-950">
+<!-- public/index.html -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
+  <!-- Estilos Principales de Producción -->
+  <link rel="stylesheet" href="styles.css?v=6.0">
+
   <!-- Título y SEO Básico -->
   <title>IA Chef | Tu Asistente Culinario Nutricional en iachef.com</title>
   <meta name="description" content="Recetas inteligentes personalizadas para diferentes condiciones de salud y gustos, maridaje de bebidas y compras locales.">
   <link rel="canonical" href="https://iachef.com/">
 
-  <!-- Favicon e Iconos (Rutas Relativas) -->
+  <!-- Script Principal de la App (Descarga paralela sin bloquear renderizado) -->
+  <script src="app.js?v=6.0" defer></script>
+
+  <!-- Favicon e Iconos -->
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
   <link rel="shortcut icon" href="icons/icon-192x192.png" type="image/png">
   <link rel="apple-touch-icon" href="icons/icon-192x192.png">
 
-  <!-- Configuración PWA y Compatibilidad Móvil Unificada -->
+  <!-- Configuración PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#10b981">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="IAChef">
 
-  <!-- Open Graph / WhatsApp / Facebook / Redes Sociales -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://iachef.com/">
   <meta property="og:title" content="IAChef - Recetas Inteligentes al Instante">
   <meta property="og:description" content="Descubre qué cocinar hoy con los ingredientes que tienes a la mano usando IA.">
   <meta property="og:image" content="https://iachef.com/icons/icon-512x512.png">
 
-  <!-- Tailwind CSS CDN Optimizado (Fallback seguro por CDN + CSS Local relativo con cache-buster v5.0) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="styles.css?v=5.0">
-
-  <!-- ============================================================ -->
-  <!-- ESTILOS DEL BANNER FLOTANTE PERSONALIZADO PWA (IACHEF)       -->
-  <!-- ============================================================ -->
+  <!-- Estilos del Banner Flotante PWA -->
   <style>
     .pwa-install-banner {
       position: fixed;
@@ -42,7 +43,7 @@
       left: 50%;
       transform: translateX(-50%) translateY(180%);
       opacity: 0;
-      pointer-events: none; /* Evita interferir con clics cuando está oculto */
+      pointer-events: none;
       width: 90%;
       max-width: 420px;
       background: #ffffff;
@@ -62,7 +63,7 @@
     .pwa-install-banner.active {
       transform: translateX(-50%) translateY(0);
       opacity: 1;
-      pointer-events: auto; /* Activa la interacción táctil cuando se muestra */
+      pointer-events: auto;
     }
 
     .pwa-banner-icon {
@@ -218,7 +219,7 @@
             >
           </div>
 
-          <!-- 🍷 Módulo de Maridaje de Bebidas (MONETIZACIÓN Y EXPERIENCIA) -->
+          <!-- 🍷 Módulo de Maridaje de Bebidas -->
           <div class="space-y-3 bg-indigo-950/20 p-4 rounded-2xl border border-indigo-500/30">
             <label class="block text-sm font-semibold text-indigo-400">
               🍷 Preferencias de Maridaje de Bebidas
@@ -262,7 +263,7 @@
             </div>
           </div>
 
-          <!-- 📸 Carga Multifoto (Hasta 4 imágenes) & 🎙️ Micrófono de Voz -->
+          <!-- 📸 Carga Multifoto & 🎙️ Micrófono -->
           <div class="space-y-3 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
             <div class="flex items-center justify-between">
               <label class="block text-sm font-medium text-slate-300">
@@ -273,7 +274,6 @@
               </button>
             </div>
 
-            <!-- Previsualización Multifoto -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="photoGrid">
               <div id="dropZone" class="border-2 border-dashed border-slate-700 hover:border-amber-500/50 bg-slate-900 rounded-xl p-4 text-center cursor-pointer flex flex-col items-center justify-center min-h-[100px]">
                 <input type="file" id="imageInput" accept="image/*" multiple class="hidden">
@@ -282,7 +282,6 @@
               </div>
             </div>
 
-            <!-- Dictado / Texto Complementario de Productos Ocultos -->
             <div class="space-y-1">
               <label for="preferenciaTexto" class="block text-xs font-medium text-slate-400">
                 Describe alimentos ocultos, apilados o tus antojos de hoy:
@@ -351,26 +350,19 @@
 
   </div>
 
-  <!-- ========================================== -->
-  <!-- FOOTER - SECCIÓN DE LEGALES Y CONTACTO     -->
-  <!-- ========================================== -->
+  <!-- FOOTER - LEGALES -->
   <footer class="w-full bg-slate-900 border-t border-slate-800 py-6 mt-12 text-slate-400 text-xs text-center">
     <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-      
-      <!-- Identidad y Contacto -->
       <div class="text-center sm:text-left">
         <p class="font-semibold text-slate-300">IA CHEF © 2026 — Todos los derechos reservados</p>
         <p class="mt-1 text-slate-500">
           Contacto: <a href="mailto:consultas@persedi.com" class="text-amber-500 hover:underline">consultas@persedi.com</a>
         </p>
       </div>
-
-      <!-- Enlaces Legales -->
       <div class="flex gap-4">
         <button onclick="openLegalModal('privacy')" class="hover:text-amber-400 underline cursor-pointer">Política de Privacidad</button>
         <button onclick="openLegalModal('terms')" class="hover:text-amber-400 underline cursor-pointer">Términos y Condiciones</button>
       </div>
-
     </div>
   </footer>
 
@@ -412,20 +404,18 @@
     }
   </script>
 
-  <!-- Registro Script del Service Worker (Ruta Relativa sw.js) -->
+  <!-- Registro del Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js?v=5.0')
+        navigator.serviceWorker.register('sw.js?v=6.0')
           .then((reg) => console.log('Service Worker registrado con éxito:', reg.scope))
           .catch((err) => console.error('Error al registrar Service Worker:', err));
       });
     }
   </script>
 
-  <!-- ============================================================ -->
-  <!-- ESTRUCTURA DEL BANNER FLOTANTE DE INSTALACIÓN PWA            -->
-  <!-- ============================================================ -->
+  <!-- Banner PWA -->
   <div id="pwaInstallBanner" class="pwa-install-banner" aria-hidden="true">
     <img src="icons/icon-192x192.png" alt="IAChef App" class="pwa-banner-icon" />
     <div class="pwa-banner-info">
@@ -437,9 +427,6 @@
       <button id="btnPwaClose" class="btn-pwa-close" aria-label="Cerrar">&times;</button>
     </div>
   </div>
-
-  <!-- Carga de app.js con ruta relativa e inyección de versión v5.0 -->
-  <script src="app.js?v=5.0"></script>
 
 </body>
 </html>
